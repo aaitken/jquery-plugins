@@ -1,3 +1,7 @@
+//radio button-to-(expanding)-toggle jQuery plugin
+//Alex Aitken 7/2011
+//Call plugin using a selector that resolves to a discrete, named radio button group
+
 (function($){
 
 	//private
@@ -38,15 +42,28 @@
 
 				//attach clicks
 				(function(){
-					var class=settings.highlight===true?'highlight':'active';
-					$labels.click(function(){
-						var $that=$(this);
-						$that.toggleClass(class);
-						$labels.each(function(){
+
+					//private
+					var class=settings.highlight===true?'highlight':'active';//css class determined by settings.highlight
+
+					$labels.click(function(e){console.log(e);
+						var $that=$(this),//clicked label
+							$input=$('#'+$that.attr('for'));
+
+						//appearance
+						$that.toggleClass(class); //instigator
+						$labels.each(function(){ //others
 							if($(this)[0]!==$that[0]){
 								$(this).removeClass(class);
 							}
 						});
+
+						//radio toggle
+						if($input[0].checked){
+							e.preventDefault();
+							$input.removeAttr('checked');
+						}
+
 					})
 				}());
 			}

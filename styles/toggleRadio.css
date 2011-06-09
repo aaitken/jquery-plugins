@@ -2,7 +2,8 @@
     position:relative;
 }
 .tr-container input{
-    position:absolute
+    position:absolute;
+	/*visibility:hidden;*/
 }
 .tr-container label{
     font-size:0.875em;
