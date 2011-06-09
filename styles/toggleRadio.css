@@ -1,0 +1,83 @@
+.tr-container{/*div*/
+    position:relative;
+}
+.tr-container input{
+    position:absolute
+}
+.tr-container label{
+    font-size:0.875em;
+    display:inline-block;
+    -webkit-border-top-right-radius:2px;
+    -webkit-border-bottom-right-radius:2px;
+	-webkit-border-top-left-radius:2px;
+    -webkit-border-bottom-left-radius:2px;
+    border:1px solid #e5e5e5;
+    background:#eee;
+    color:#333;
+    padding:3px 6px;
+    cursor:pointer;
+}
+.tr-container.tr-offset label,
+.tr-container.tr-expand label{
+	margin-left:20px;
+}
+.tr-container.tr-expand label{
+	-webkit-border-top-left-radius:0;
+    -webkit-border-bottom-left-radius:0;
+}
+
+.tr-container.tr-expand label::before{
+    content:'';
+    position:absolute;
+    width:19px;
+    height:100%;
+    left:0;
+    top:0;
+    cursor:pointer;
+    background:#e5e5e5;
+    border-right:1px solid #fff;
+    -webkit-border-top-left-radius:2px;
+    -webkit-border-bottom-left-radius:2px;
+}
+.tr-container.tr-expand label::after{
+    content:'';
+    width:0;
+    height:0;
+    left:0;
+    margin:50% 0 0 8px;
+    position:absolute;
+    top:-5px;
+    border-bottom:5px solid transparent;  /* left arrow slant */
+    border-top:5px solid transparent; /* right arrow slant */
+    border-left:4px solid #444; /* bottom, add background color here */
+    font-size:0px;
+    line-height:0px;
+}
+.tr-container label span{
+    display:inline;
+    /*background:yellow*/
+}
+
+.tr-container .hover,
+.tr-container .active,
+.tr-container.tr-expand .hover:before,
+.tr-container.tr-expand .active:before,
+.tr-container.tr-expand .highlight:before{
+    background:#ddd;
+    color:#000;
+}
+.tr-container.tr-expand .hover:after{
+    border-left:4px solid #111;
+}
+.tr-container .highlight{
+    background:#ffc;
+    color:#000;
+}
+.tr-container.tr-expand .highlight:after,
+.tr-container.tr-expand .active:after{
+    top:-1px;
+    left:-3px;
+    border-right:5px solid transparent;  /* left arrow slant */
+    border-top:4px solid #000; /* right arrow slant */
+    border-left:5px solid transparent; /* bottom, add background color here */
+}
