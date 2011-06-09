@@ -47,7 +47,7 @@
 					//private
 					var className=settings.highlight===true?'highlight':'active';//css class determined by settings.highlight
 
-					$labels.click(function(e){console.log(e);
+					$labels.click(function(e){
 						var $that=$(this),//clicked label
 							$input=$('#'+$that.attr('for'));
 
@@ -59,7 +59,7 @@
 							}
 						});
 
-						//radio toggle
+						//radio toggle off
 						if($input[0].checked){
 							e.preventDefault();
 							$input.removeAttr('checked');
