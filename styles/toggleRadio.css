@@ -3,7 +3,7 @@
 }
 .tr-container input{
     position:absolute;
-	/*visibility:hidden;*/
+	visibility:hidden;
 }
 .tr-container label{
     font-size:0.875em;

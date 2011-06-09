@@ -11,7 +11,8 @@
 				$labels.each(function(){
 					var $this=$(this);
 					$this.parent().addClass('tr-container');
-					if(settings.expand===true){$this.parent().addClass('tr-expand')}
+					if(settings.expand){$this.parent().addClass('tr-expand')}
+					if(settings.offset){$this.parent().addClass('tr-offset')}
 				});
 
 			},
@@ -20,7 +21,7 @@
 			//Couldn't accomplish with CSS b/c wrap-initiating container keeps
 			//width that kicks off the wrap (instead of collapsing down around
 			//wrapped content) - generated span gives the width
-			setLabelWidths:function($labels,settings){
+			setLabelWidths:function($labels){
 				$labels.each(function(){
 					var $this=$(this);
 					$this.wrapInner(document.createElement('span'));
@@ -44,17 +45,17 @@
 				(function(){
 
 					//private
-					var class=settings.highlight===true?'highlight':'active';//css class determined by settings.highlight
+					var className=settings.highlight===true?'highlight':'active';//css class determined by settings.highlight
 
 					$labels.click(function(e){console.log(e);
 						var $that=$(this),//clicked label
 							$input=$('#'+$that.attr('for'));
 
 						//appearance
-						$that.toggleClass(class); //instigator
+						$that.toggleClass(className); //instigator
 						$labels.each(function(){ //others
 							if($(this)[0]!==$that[0]){
-								$(this).removeClass(class);
+								$(this).removeClass(className);
 							}
 						});
 
@@ -64,6 +65,13 @@
 							$input.removeAttr('checked');
 						}
 
+						//timed callback
+						if(settings.callback){
+							setTimeout(function(){
+								settings.callback();
+							},settings.delay);
+						}
+
 					})
 				}());
 			}
@@ -71,22 +79,26 @@
 
 	$.fn.toggleRadio=function(options){
 
+		//todo - set up for event delegation rather than individual attachments
+
 		//defaults
-		var settings={
-			expand:false,
-			highlight:true,
-			offset:false,
-			action:null
-		};
+		var	$label=this.parent().find('label'), //label translation (as plugin is called on rb group)
+			settings={
+				expand:false, //left-side arrow toggle
+				highlight:true, //highlight instead of subtler 'active' class
+				offset:false, //left positioning
+				callback:null, //callback function for after toggle
+				delay:0 //callback delay
+			};
 
 		//overrides
 		if(options){
 			$.extend(settings,options);
 		}
 
-		methods.setup(this,settings);
-		methods.setLabelWidths(this,settings);
-		methods.attachLabelBehaviors(this,settings);
+		methods.setup($label,settings);
+		methods.setLabelWidths($label);
+		methods.attachLabelBehaviors($label,settings);
 	};
 
 }(jQuery));
